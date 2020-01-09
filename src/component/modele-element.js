@@ -1,8 +1,6 @@
 import { LitElement, html } from 'lit-element';
 
-import './login-element.js'
-
-class AppElement extends LitElement {
+class ModeleElement extends LitElement {
 
   static get properties() {
     return {
@@ -18,10 +16,9 @@ class AppElement extends LitElement {
   render(){
     return html`
     Hello <b>${this.something}</b> from app-element !
-      <login-element></login-element>
     `;
   }
 
 }
 
-customElements.define('app-element', AppElement);
+customElements.define('modele-element', ModeleElement);
