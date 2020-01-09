@@ -84,7 +84,7 @@ module.exports =
 
 ```
 
-      -  add start & build scripts to package.json
+-  add start & build scripts to package.json
 
 
 ```
@@ -99,7 +99,7 @@ module.exports =
 
 ```
 
-        - launch webpack dev server with
+- launch webpack dev server with
 
 ```
         npm run start
@@ -111,13 +111,13 @@ module.exports =
         then we need to populate the src/component/app-element.js and can use lit-element for this
 
 
-        * lit-element (webcomponents)
+* lit-element (webcomponents)
 
 ```
         npm install --save lit-element
 
 ```
-        **src/component/app-element.js**
+**src/component/app-element.js**
 
 ```
         import { LitElement, html } from 'lit-element';
@@ -147,12 +147,12 @@ module.exports =
 
 ```
 
-        # Some Solid webcomponents
+# Some Solid webcomponents
 
-        - login-element
+- login-element
         first create a basic login-element (there is a model at src/component/modele-element, just duplicate that file & change 'ModeleElement' (2 times) & 'modele-element')
 
-        **src/component/login-element.js**
+**src/component/login-element.js**
 
 ```
         import { LitElement, html } from 'lit-element';
@@ -310,14 +310,14 @@ module.exports =
 
 
 
-          * evejs ( communication between webcomponents)
+* evejs ( communication between webcomponents)
 
 ```
 
 ```
 
 
-          # make a gh-pages branches
+# make a gh-pages branches
           https://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
 
           create subbranch with dist folder
