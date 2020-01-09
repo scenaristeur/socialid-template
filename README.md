@@ -1,91 +1,153 @@
-# socialid
-Tutoriel making a social app on top of Solid
+# Build a Solid App from Zero to Hero
+
+* What is Solid ?
+* Get a POD ?
 
 
-# my first social app based on Solid
+# Structure of the App
+* nodejs
 
-- first install latest version of nodejs
-- make a folder for your app, mine is 'socialid'
-- change directory to your newly created folder and initialize a nodejs app with 'npm init -y'
-- then launch your favorite text editor
+initialise a nodejs app
+```
+npm init -y
+```
+* webpack
+install webpack dev-dependencies
 
 ```
-C:\Users\Smag\Documents\dev>mkdir socialid
+npm install --save-dev webpack webpack-cli webpack-dev-server
+mkdir dist
+touch dist/index.html
+touch webpack.config.js
+mkdir src
+mkdir src/component
+touch src/component/app-element.js
 
-C:\Users\Smag\Documents\dev>cd socialid
-
-C:\Users\Smag\Documents\dev\socialid>npm init -y
-Wrote to C:\Users\Smag\Documents\dev\socialid\package.json:
-
-{
-  "name": "socialid",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
-}
-
-C:\Users\Smag\Documents\dev\socialid>atom .
 ```
-- then at the root of your 'socialid' app,
-create two files 'index.js' that will be our server and 'index.html' that will be the starting page of our app.
+**dist/index.html**
 
-- next, we will create a basic express server in our 'index.js' file : First install express with ``` npm install --save express``` and fill the 'index.js' with this code :
-
-***index.js***
-```
-// Setup basic express server
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app);
-var port = process.env.PORT || 3000;
-
-server.listen(port, function () {
-	console.log('Server listening at port %d', port);
-});
-
-// Routing
-app.use(express.static(__dirname + '/'));
-```
-
-and put some basic html in the 'index.html'
-
-***index.html***
 ```
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Socialid</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>Socialid</title>
+<link rel="manifest" href="/manifest.json">
 </head>
 <body>
-Hello from Socialid
+<app-element name="App"></app-element>
+<script src="app-element.js"></script>
 </body>
 </html>
 ```
 
-- then test your app with
-```
-node .
-```
-
-You should see the express server start
-```
-C:\Users\Smag\Documents\dev\socialid>npm install --save express
-npm notice created a lockfile as package-lock.json. You should commit this file.npm WARN socialid@1.0.0 No repository field.
-
-+ express@4.17.1
-added 50 packages from 37 contributors and audited 126 packages in 3.369s
-found 0 vulnerabilities
 
 
-C:\Users\Smag\Documents\dev\socialid>node .
-Server listening at port 3000
+
+
+
+
+**webpack.config.js**
 ```
-and your app can be accessed at http://127.0.0.1:3000 
+
+const path = require('path');
+
+module.exports = {
+  entry: {
+    app: './src/component/app-element.js',
+    //  dev: './src/component/dev-element.js'
+    },
+    output: {
+      filename: '[name]-element.js',
+      path: path.resolve(__dirname, 'dist'),
+      },
+      devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000,
+        historyApiFallback: true,
+        inline: true,
+        open: true,
+        hot: true
+        },
+        devtool: "eval-source-map",
+        performance: { hints: false }
+      };
+      ```
+
+      add start & build scripts to package.json
+
+      ```
+      ...
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "webpack-dev-server -d --hot --config webpack.config.js --watch",
+        "build": "webpack"
+        },
+        ...
+        ```
+        launch webpack dev server with
+
+        ```
+        npm run start
+
+        ```
+        it opens the index.html in your dist folder on http://localhost:9000
+
+        then we need to populate some
+
+
+        * lit-element (webcomponents)
+
+
+        ```
+        npm install --save lit-element
+        ```
+        **src/component/app-element.js**
+        ```
+        import { LitElement, html } from 'lit-element';
+
+        class AppElement extends LitElement {
+
+          static get properties() {
+            return {
+              something: {type: String},
+            };
+          }
+
+          constructor() {
+            super();
+            this.something = "world"
+          }
+
+          render(){
+            return html`
+            Hello ${this.world} from app-element
+            `;
+          }
+
+        }
+
+        customElements.define('app-element', AppElement);
+
+        ```
+
+        
+        * evejs ( communication between webcomponents)
+
+        ```
+
+        ```
+
+
+        # make a gh-pages branches
+        https://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
+
+        ```
+        git add dist && git commit -m "Initial dist subtree commit"
+
+        npm run build && git subtree push --prefix dist origin gh-pages
+
+        ```
