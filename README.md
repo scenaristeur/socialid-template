@@ -1,3 +1,7 @@
+# The app
+https://scenaristeur.github.io/socialid/
+
+
 # Build a Solid App from Zero to Hero
 
 * What is Solid ?
@@ -9,6 +13,7 @@
 
 initialise a nodejs app
 ```
+mkdir socialid
 npm init -y
 ```
 * webpack
@@ -50,8 +55,8 @@ touch src/component/app-element.js
 
 
 **webpack.config.js**
-```
 
+```
 const path = require('path');
 
 module.exports = {
@@ -75,11 +80,14 @@ module.exports = {
         devtool: "eval-source-map",
         performance: { hints: false }
       };
+
       ```
 
       add start & build scripts to package.json
 
+
       ```
+
       ...
       "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -87,13 +95,16 @@ module.exports = {
         "build": "webpack"
         },
         ...
+
         ```
+
         launch webpack dev server with
 
         ```
         npm run start
 
         ```
+
         it opens the index.html in your dist folder on http://localhost:9000
 
         then we need to populate some
@@ -105,7 +116,9 @@ module.exports = {
         ```
         npm install --save lit-element
         ```
+
         **src/component/app-element.js**
+
         ```
         import { LitElement, html } from 'lit-element';
 
@@ -134,7 +147,7 @@ module.exports = {
 
         ```
 
-        
+
         * evejs ( communication between webcomponents)
 
         ```
@@ -145,9 +158,16 @@ module.exports = {
         # make a gh-pages branches
         https://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
 
-        ```
-        git add dist && git commit -m "Initial dist subtree commit"
+        create subbranch with dist folder
+        - comment the dist folder in the .gitignore file
 
-        npm run build && git subtree push --prefix dist origin gh-pages
+        ```
+        git add dist -f && git commit -m "Initial dist subtree commit"
+        ```
+
+        build & publish to gh-pages
+
+        ```
+                npm run build && git subtree push --prefix dist origin gh-pages
 
         ```
