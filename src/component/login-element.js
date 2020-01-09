@@ -1,10 +1,12 @@
 import { LitElement, html } from 'lit-element';
-import * as auth from 'solid-auth-client'
+import * as auth from 'solid-auth-client';
+import { HelloAgent } from '../agents/hello-agent.js';
 
 class LoginElement extends LitElement {
 
   static get properties() {
     return {
+      name: {type: String},
       webId: {type: String},
     };
   }
@@ -31,12 +33,15 @@ class LoginElement extends LitElement {
   }
 
   firstUpdated(){
+    this.agent = new HelloAgent(this.name);
     auth.trackSession(session => {
       if (!session){
         this.webId=null
+        this.agent.send('Messages',  {action:"info", info:"Not logged"});
       }
       else{
         this.webId = session.webId
+        this.agent.send('Messages',  {action:"info", info:"Login "+this.webId});
       }
     })
   }
