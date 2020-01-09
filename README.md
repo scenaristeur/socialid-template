@@ -44,6 +44,9 @@ touch src/component/app-element.js
 <body>
 <app-element name="App"></app-element>
 <script src="app-element.js"></script>
+<footer>
+<a href="https://github.com/scenaristeur/socialid" target="_blank">source</a>
+</footer>
 </body>
 </html>
 
@@ -56,32 +59,32 @@ touch src/component/app-element.js
 const path = require('path');
 
 module.exports = {
-entry: {
-  app: './src/component/app-element.js',
-  },
-  output: {
-    filename: '[name]-element.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 9000,
-    historyApiFallback: true,
-    inline: true,
-    open: true,
-    hot: true
-  },
-  devtool: "eval-source-map",
-  performance: { hints: false }
-};
+  entry: {
+    app: './src/component/app-element.js',
+    },
+    output: {
+      filename: '[name]-element.js',
+      path: path.resolve(__dirname, 'dist'),
+      },
+      devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000,
+        historyApiFallback: true,
+        inline: true,
+        open: true,
+        hot: true
+        },
+        devtool: "eval-source-map",
+        performance: { hints: false }
+      };
 
-```
+      ```
 
--  add start & build scripts to package.json
+      -  add start & build scripts to package.json
 
 
-```
+      ```
 
       ...
       "scripts": {
@@ -91,29 +94,29 @@ entry: {
         },
         ...
 
-```
+        ```
 
-- launch webpack dev server with
+        - launch webpack dev server with
 
-```
+        ```
         npm run start
 
-```
+        ```
 
-it opens the index.html in your dist folder on http://localhost:9000
+        it opens the index.html in your dist folder on http://localhost:9000
 
-then we need to populate the src/component/app-element.js and can use lit-element for this
+        then we need to populate the src/component/app-element.js and can use lit-element for this
 
 
-* lit-element (webcomponents)
+        * lit-element (webcomponents)
 
-```
-npm install --save lit-element
+        ```
+        npm install --save lit-element
 
-```
-**src/component/app-element.js**
+        ```
+        **src/component/app-element.js**
 
-```
+        ```
         import { LitElement, html } from 'lit-element';
 
         class AppElement extends LitElement {
@@ -139,29 +142,39 @@ npm install --save lit-element
 
         customElements.define('app-element', AppElement);
 
-```
+        ```
 
 
-* evejs ( communication between webcomponents)
+        * evejs ( communication between webcomponents)
 
         ```
 
         ```
 
 
-# make a gh-pages branches
+        # make a gh-pages branches
         https://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
 
         create subbranch with dist folder
-- comment the dist folder in the .gitignore file
+        - comment the dist folder in the .gitignore file
 
         ```
         git add dist -f && git commit -m "Initial dist subtree commit"
         ```
 
-- build & publish to gh-pages
+        - build & publish to gh-pages
 
         ```
-                npm run build && git subtree push --prefix dist origin gh-pages
+        npm run build && git subtree push --prefix dist origin gh-pages
+
+        ```
+
+        - short cut for publish a change to gh-pages
+        ```
+        npm run build
+        git add .
+        git commit -m "app updated"
+        git push
+        git subtree push --prefix dist origin gh-pages
 
         ```
