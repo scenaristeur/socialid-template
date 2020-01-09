@@ -3,7 +3,6 @@ const path = require('path');
 module.exports = {
   entry: {
     app: './src/component/app-element.js',
-  //  dev: './src/component/dev-element.js'
   },
   output: {
     filename: '[name]-element.js',

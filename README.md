@@ -46,12 +46,8 @@ touch src/component/app-element.js
 <script src="app-element.js"></script>
 </body>
 </html>
+
 ```
-
-
-
-
-
 
 
 **webpack.config.js**
@@ -60,33 +56,32 @@ touch src/component/app-element.js
 const path = require('path');
 
 module.exports = {
-  entry: {
-    app: './src/component/app-element.js',
-    //  dev: './src/component/dev-element.js'
-    },
-    output: {
-      filename: '[name]-element.js',
-      path: path.resolve(__dirname, 'dist'),
-      },
-      devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 9000,
-        historyApiFallback: true,
-        inline: true,
-        open: true,
-        hot: true
-        },
-        devtool: "eval-source-map",
-        performance: { hints: false }
-      };
+entry: {
+  app: './src/component/app-element.js',
+  },
+  output: {
+    filename: '[name]-element.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000,
+    historyApiFallback: true,
+    inline: true,
+    open: true,
+    hot: true
+  },
+  devtool: "eval-source-map",
+  performance: { hints: false }
+};
 
-      ```
+```
 
-      add start & build scripts to package.json
+-  add start & build scripts to package.json
 
 
-      ```
+```
 
       ...
       "scripts": {
@@ -96,14 +91,14 @@ module.exports = {
         },
         ...
 
-        ```
+```
 
-        launch webpack dev server with
+- launch webpack dev server with
 
-        ```
+```
         npm run start
 
-        ```
+```
 
         it opens the index.html in your dist folder on http://localhost:9000
 
@@ -113,13 +108,14 @@ module.exports = {
         * lit-element (webcomponents)
 
 
-        ```
+```
         npm install --save lit-element
-        ```
+
+```
 
         **src/component/app-element.js**
 
-        ```
+```
         import { LitElement, html } from 'lit-element';
 
         class AppElement extends LitElement {
@@ -137,7 +133,7 @@ module.exports = {
 
           render(){
             return html`
-            Hello ${this.world} from app-element
+            Hello <b>${this.something}</b> from app-element
             `;
           }
 
@@ -145,7 +141,7 @@ module.exports = {
 
         customElements.define('app-element', AppElement);
 
-        ```
+```
 
 
         * evejs ( communication between webcomponents)
