@@ -82,12 +82,12 @@ module.exports =
         }
       };
 
-      ```
+```
 
       -  add start & build scripts to package.json
 
 
-      ```
+```
 
       ...
       "scripts": {
@@ -97,14 +97,14 @@ module.exports =
         },
         ...
 
-        ```
+```
 
         - launch webpack dev server with
 
-        ```
+```
         npm run start
 
-        ```
+```
 
         it opens the index.html in your dist folder on http://localhost:9000
 
@@ -113,13 +113,13 @@ module.exports =
 
         * lit-element (webcomponents)
 
-        ```
+```
         npm install --save lit-element
 
-        ```
+```
         **src/component/app-element.js**
 
-        ```
+```
         import { LitElement, html } from 'lit-element';
 
         class AppElement extends LitElement {
@@ -145,7 +145,7 @@ module.exports =
 
         customElements.define('app-element', AppElement);
 
-        ```
+```
 
         # Some Solid webcomponents
 
@@ -154,7 +154,7 @@ module.exports =
 
         **src/component/login-element.js**
 
-        ```
+```
         import { LitElement, html } from 'lit-element';
 
         class LoginElement extends LitElement {
@@ -182,27 +182,27 @@ module.exports =
 
         customElements.define('login-element', LoginElement);
 
-        ```
+```
 
         next we will need to import 'solid-auth-client' module
 
-        ```
+```
         npm install --save solid-auth-client
-        ```
+```
 
 
 
 
         we need  to add the 'solid-auth-client' popup to our dist folder
 
-        ```
+```
         cp -r node_modules/solid-auth-client/dist-popup/ dist
 
-        ```
+```
 
         and update login-element like this
 
-        ```
+```
         import { LitElement, html } from 'lit-element';
         import * as auth from 'solid-auth-client'
 
