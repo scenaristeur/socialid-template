@@ -58,7 +58,8 @@ touch src/component/app-element.js
 ```
 const path = require('path');
 
-module.exports = {
+module.exports =
+{
   entry: {
     app: './src/component/app-element.js',
     },
@@ -76,7 +77,9 @@ module.exports = {
         hot: true
         },
         devtool: "eval-source-map",
-        performance: { hints: false }
+        performance: {
+          hints: false
+        }
       };
 
       ```
@@ -144,161 +147,199 @@ module.exports = {
 
         ```
 
-# Some Solid webcomponents
+        # Some Solid webcomponents
 
-- login-element
-first create a basic login-element (there is a model at src/component/modele-element, just duplicate that file & change 'ModeleElement' (2 times) & 'modele-element')
+        - login-element
+        first create a basic login-element (there is a model at src/component/modele-element, just duplicate that file & change 'ModeleElement' (2 times) & 'modele-element')
 
-**src/component/login-element.js**
+        **src/component/login-element.js**
 
-```
-import { LitElement, html } from 'lit-element';
+        ```
+        import { LitElement, html } from 'lit-element';
 
-class LoginElement extends LitElement {
+        class LoginElement extends LitElement {
 
-  static get properties() {
-    return {
-      webId: {type: String},
-    };
-  }
+          static get properties() {
+            return {
+              webId: {type: String},
+            };
+          }
 
-  constructor() {
-    super();
-    this.webId = "nobody"
-  }
+          constructor() {
+            super();
+            this.webId = "nobody"
+          }
 
-  render(){
-    return html`
-    <button>Login</button>
-    <button>Logout</button>
-    ${this.webId}
-    `;
-  }
+          render(){
+            return html`
+            <button>Login</button>
+            <button>Logout</button>
+            ${this.webId}
+            `;
+          }
 
-}
+        }
 
-customElements.define('login-element', LoginElement);
-```
-
-next we will need to import 'solid-auth-client' module
-
-```
-npm install --save solid-auth-client
-```
-
-
-
-
-we need  to add the 'solid-auth-client' popup to our dist folder
-
-```
-cp -r node_modules/solid-auth-client/dist-popup/ dist
-```
-
-and update login-element like this
-```
-import { LitElement, html } from 'lit-element';
-import * as auth from 'solid-auth-client'
-
-class LoginElement extends LitElement {
-
-  static get properties() {
-    return {
-      webId: {type: String},
-    };
-  }
-
-  constructor() {
-    super();
-    this.webId = null
-  }
-
-  render(){
-    return html`
-    <!-- if this.webId == null , login button is diaplayed -->
-    ${this.webId == null ?
-      html`
-      <button @click=${this.login}>Login</button>
-      `
-      : html`
-      <!-- else logout button is displayed -->
-      <button @click=${this.logout}>Logout</button>
-      ${this.webId}
-      `
-    }
-    `;
-  }
-
-  firstUpdated(){
-    auth.trackSession(session => {
-      if (!session){
-        this.webId=null
-      }
-      else{
-        this.webId = session.webId
-      }
-    })
-  }
-
-  login(event) {
-    this.popupLogin();
-  }
-
-  logout(event) {
-    auth.logout().then(() => alert('Goodbye!'));
-  }
-
-  async popupLogin() {
-    let session = await auth.currentSession();
-    let popupUri = './dist-popup/popup.html';
-    if (!session)
-    session = await auth.popupLogin({ popupUri });
-  }
-
-}
-
-customElements.define('login-element', LoginElement);
-
-```
-
-*** Now you have your first Solid compoenent ***
-
-
-
-
-
-
-
-        * evejs ( communication between webcomponents)
+        customElements.define('login-element', LoginElement);
 
         ```
 
+        next we will need to import 'solid-auth-client' module
+
+        ```
+        npm install --save solid-auth-client
         ```
 
 
-        # make a gh-pages branches
-        https://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
 
-        create subbranch with dist folder
-        - comment the dist folder in the .gitignore file
+
+        we need  to add the 'solid-auth-client' popup to our dist folder
 
         ```
-        git add dist -f && git commit -m "Initial dist subtree commit"
-        ```
-
-        - build & publish to gh-pages
-
-        ```
-        npm run build && git subtree push --prefix dist origin gh-pages
+        cp -r node_modules/solid-auth-client/dist-popup/ dist
 
         ```
 
-        - short cut for publish a change to gh-pages
-        ```
-        npm run build
-        git add .
-        git commit -m "app updated"
-        git push
-        git subtree push --prefix dist origin gh-pages
+        and update login-element like this
 
         ```
+        import { LitElement, html } from 'lit-element';
+        import * as auth from 'solid-auth-client'
+
+        class LoginElement extends LitElement {
+
+          static get properties() {
+            return {
+              webId: {type: String},
+            };
+          }
+
+          constructor() {
+            super();
+            this.webId = null
+          }
+
+          render(){
+            return html`
+            <!-- if this.webId == null , login button is diaplayed -->
+            ${this.webId == null ?
+              html`
+              <button @click=${this.login}>Login</button>
+              `
+              : html`
+              <!-- else logout button is displayed -->
+              <button @click=${this.logout}>Logout</button>
+              ${this.webId}
+              `
+            }
+            `;
+          }
+
+          firstUpdated(){
+            auth.trackSession(session => {
+              if (!session){
+                this.webId=null
+              }
+              else{
+                this.webId = session.webId
+              }
+              })
+            }
+
+            login(event) {
+              this.popupLogin();
+            }
+
+            logout(event) {
+              auth.logout().then(() => alert('Goodbye!'));
+            }
+
+            async popupLogin() {
+              let session = await auth.currentSession();
+              let popupUri = './dist-popup/popup.html';
+              if (!session)
+              session = await auth.popupLogin({ popupUri });
+            }
+
+          }
+
+          customElements.define('login-element', LoginElement);
+
+```
+
+- Now you have your first Solid component, you can add it to your src/component/app-element.js
+
+**src/component/app-element.js**
+
+```
+          import { LitElement, html } from 'lit-element';
+
+          import './login-element.js'
+
+          class AppElement extends LitElement {
+
+            static get properties() {
+              return {
+                something: {type: String},
+              };
+            }
+
+            constructor() {
+              super();
+              this.something = "world"
+            }
+
+            render(){
+              return html`
+              Hello <b>${this.something}</b> from app-element !
+              <login-element></login-element>
+              `;
+            }
+
+          }
+
+          customElements.define('app-element', AppElement);
+```
+
+
+
+
+
+
+
+
+
+
+          * evejs ( communication between webcomponents)
+
+```
+
+```
+
+
+          # make a gh-pages branches
+          https://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
+
+          create subbranch with dist folder
+- comment the dist folder in the .gitignore file
+
+```
+          git add dist -f && git commit -m "Initial dist subtree commit"
+```
+
+- build & publish to gh-pages
+
+```
+          npm run build && git subtree push --prefix dist origin gh-pages
+
+```
+
+- short cut for publish a change to gh-pages
+```
+          npm run build
+          git add .
+          git commit -m "app updated"
+          git push
+          git subtree push --prefix dist origin gh-pages
+
+```
