@@ -15,7 +15,7 @@ class AppElement extends LitElement {
 
   render(){
     return html`
-    Hello <b>${this.something}</b> from app-element
+    Hello <b>${this.something}</b> from app-element !
     `;
   }
 
