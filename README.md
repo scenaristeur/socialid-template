@@ -584,8 +584,7 @@ module.exports =
 ```
 
 
-
-                ![messages](doc/images/messages.png)
+![messages](doc/images/messages.png)
 
 
 
