@@ -100,20 +100,18 @@ entry: {
 
 ```
 
-        it opens the index.html in your dist folder on http://localhost:9000
+it opens the index.html in your dist folder on http://localhost:9000
 
-        then we need to populate some
-
-
-        * lit-element (webcomponents)
+then we need to populate the src/component/app-element.js and can use lit-element for this
 
 
-```
-        npm install --save lit-element
+* lit-element (webcomponents)
 
 ```
+npm install --save lit-element
 
-        **src/component/app-element.js**
+```
+**src/component/app-element.js**
 
 ```
         import { LitElement, html } from 'lit-element';
@@ -144,24 +142,24 @@ entry: {
 ```
 
 
-        * evejs ( communication between webcomponents)
+* evejs ( communication between webcomponents)
 
         ```
 
         ```
 
 
-        # make a gh-pages branches
+# make a gh-pages branches
         https://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
 
         create subbranch with dist folder
-        - comment the dist folder in the .gitignore file
+- comment the dist folder in the .gitignore file
 
         ```
         git add dist -f && git commit -m "Initial dist subtree commit"
         ```
 
-        build & publish to gh-pages
+- build & publish to gh-pages
 
         ```
                 npm run build && git subtree push --prefix dist origin gh-pages
