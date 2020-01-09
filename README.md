@@ -1,5 +1,5 @@
 # The app
-https://scenaristeur.github.io/socialid/
+https://scenaristeur.github.io/socialid-template/
 
 
 # Build a Solid App from Zero to Hero
@@ -13,7 +13,7 @@ https://scenaristeur.github.io/socialid/
 
 initialise a nodejs app
 ```
-mkdir socialid
+mkdir socialid-template
 npm init -y
 ```
 * webpack
@@ -38,14 +38,14 @@ touch src/component/app-element.js
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-<title>Socialid</title>
+<title>Socialid-Template</title>
 <link rel="manifest" href="/manifest.json">
 </head>
 <body>
 <app-element name="App"></app-element>
 <script src="app-element.js"></script>
 <footer>
-<a href="https://github.com/scenaristeur/socialid" target="_blank">source</a>
+<a href="https://github.com/scenaristeur/socialid-template" target="_blank">source</a>
 </footer>
 </body>
 </html>
